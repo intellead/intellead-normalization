@@ -25,6 +25,7 @@ var app = express();
 var request = require('request');
 var HTTPStatus = require('http-status');
 var securityUrl = process.env.SECURITY_URL || 'http://intellead-security:8080/auth';
+var normalize = require('./src/normalize');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -45,10 +46,10 @@ app.post('/normalize/:token', function (req, res) {
             }
             return res.sendStatus(response.statusCode);
         }
-        var body = req.body;
-        //normalize data
-        //return data normalized
-        return res.sendStatus(HTTPStatus.OK);
+        var data = req.body;
+        if (Object.keys(req.body).length === 0) return res.sendStatus(412);
+        var normalized_data = normalize.lead(data);
+        return res.status(HTTPStatus.OK).send(normalized_data);
     });
 });
 
@@ -67,7 +68,10 @@ app.use(function(err, req, res, next) {
   
   // router the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 module.exports = app;
