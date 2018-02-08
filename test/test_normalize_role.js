@@ -25,7 +25,23 @@ var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
 
-describe('/normalize', function() {
+describe('/normalize role', function() {
+
+    it('should return role 0 when job was not set', function(done) {
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request
+            .post('/normalize/1')
+            .send({
+                'lead': {
+                    'job_title': ''
+                }
+            })
+            .end(function (err, res) {
+                var normalized_data = JSON.stringify(res.body);
+                expect(normalized_data).contains('"role":0');
+                done();
+            });
+    });
 
     it('should return role 1 when Sócio/Proprietário', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
