@@ -30,7 +30,8 @@ describe('/normalize employees', function() {
     it('should return employees 0 when employees was not set', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -48,7 +49,8 @@ describe('/normalize employees', function() {
     it('should return employees 1 when 0 a 4', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -66,7 +68,8 @@ describe('/normalize employees', function() {
     it('should return employees 2 when 5 a 9', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -84,7 +87,8 @@ describe('/normalize employees', function() {
     it('should return employees 3 when 10 a 19', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -102,7 +106,8 @@ describe('/normalize employees', function() {
     it('should return employees 4 when 20 a 29', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -120,7 +125,8 @@ describe('/normalize employees', function() {
     it('should return employees 5 when 30 a 49', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -138,7 +144,8 @@ describe('/normalize employees', function() {
     it('should return employees 6 when 50 a 99', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -156,7 +163,8 @@ describe('/normalize employees', function() {
     it('should return employees 7 when 100 a 249', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -174,7 +182,8 @@ describe('/normalize employees', function() {
     it('should return employees 8 when 250 a 499', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -192,7 +201,8 @@ describe('/normalize employees', function() {
     it('should return employees 9 when 500 ou mais', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {

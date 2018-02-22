@@ -30,7 +30,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 0 when was not set', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -50,7 +51,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 0 when Desconhecido', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -70,7 +72,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 1 when Orgânica', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -90,7 +93,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 1 when Google', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -110,7 +114,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 1 when google', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -130,7 +135,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 2 when Paga', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -150,7 +156,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 3 when Email', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -170,7 +177,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 4 when Outros', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -190,7 +198,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 5 when Referência', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -210,7 +219,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 6 when Social | Facebook', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -230,7 +240,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 6 when Facebook Ads', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -250,7 +261,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 6 when Facebook-Ads', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -270,7 +282,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 6 when Facebook-ads', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -290,7 +303,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 7 when Social', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -310,7 +324,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 8 when Tráfego Direto', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {
@@ -330,7 +345,8 @@ describe('/normalize source', function() {
     it('should return source_first_conv 8 when direct', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'first_conversion': {

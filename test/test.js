@@ -32,7 +32,8 @@ describe('/normalize', function() {
     it('should return status code 412', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .end(function(err, res) {
                 var statusCode = res.statusCode;
                 expect(statusCode).to.equal(HTTPStatus.PRECONDITION_FAILED);
@@ -43,7 +44,8 @@ describe('/normalize', function() {
     it('should return status code 403', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 403}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .end(function(err, res) {
                 var statusCode = res.statusCode;
                 expect(statusCode).to.equal(HTTPStatus.FORBIDDEN);
@@ -54,7 +56,8 @@ describe('/normalize', function() {
     it('should return status code 200 when normalize data', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'job_title': 'Sócio/Proprietário',
@@ -87,7 +90,7 @@ describe('/normalize', function() {
                 var statusCode = res.statusCode;
                 expect(statusCode).to.equal(HTTPStatus.OK);
                 var normalized_data = JSON.stringify(res.body);
-                expect(normalized_data).to.equal('{"role":1,"profile":1,"lead_area":1,"conversion":1,"number_of_employees":1,"company_segment":1,"wip":1,"source_first_conv":1,"source_last_conv":1,"concern":1,"looking_for_a_software":1,"main_activity":1}');
+                expect(normalized_data).to.equal('{"role":1,"profile":1,"conversion":1,"lead_area":1,"number_of_employees":1,"company_segment":1,"wip":1,"source_first_conv":1,"source_last_conv":1,"concern":1,"looking_for_a_software":1,"main_activity":1}');
                 done();
             });
     });
@@ -95,7 +98,8 @@ describe('/normalize', function() {
     it('should return status code 200 when normalize data from full lead', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'email': 'jhon@silva.com',
@@ -255,7 +259,7 @@ describe('/normalize', function() {
                 var statusCode = res.statusCode;
                 expect(statusCode).to.equal(HTTPStatus.OK);
                 var normalized_data = JSON.stringify(res.body);
-                expect(normalized_data).to.equal('{"role":6,"profile":3,"lead_area":12,"conversion":41,"number_of_employees":3,"company_segment":1,"wip":3,"source_first_conv":0,"source_last_conv":3,"concern":3,"looking_for_a_software":0,"main_activity":0}');
+                expect(normalized_data).to.equal('{"role":6,"profile":3,"conversion":41,"lead_area":12,"number_of_employees":3,"company_segment":1,"wip":3,"source_first_conv":0,"source_last_conv":3,"concern":3,"looking_for_a_software":0,"main_activity":0}');
                 done();
             });
     });
