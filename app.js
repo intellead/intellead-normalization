@@ -37,8 +37,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post('/normalize/:token', function (req, res) {
-    var token = req.param('token');
+app.post('/normalize', function (req, res) {
+    var token = req.header('token');
     request({ url: securityUrl + '/' + token}, function(error, response, body) {
         if (response.statusCode != HTTPStatus.OK) {
             if (error) {

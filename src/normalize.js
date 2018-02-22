@@ -24,8 +24,8 @@ module.exports = {
         var normalized_data = {
             role: job_title(getProperty(data, 'lead.job_title', 0)),
             profile: lead_profile(getProperty(data, 'lead.fit_score', 0)),
-            lead_area: area(getProperty(data, 'lead.custom_fields.Área', 0)),
             conversion: parseInt(getProperty(data, 'lead.number_conversions', 0)),
+            lead_area: area(getProperty(data, 'lead.custom_fields.Área', 0)),
             number_of_employees: number_of_employees_in_office(getProperty(data, 'lead.custom_fields.Quantos funcionários há na sua empresa nas áreas de Engenharia, Compras, Financeiro, Administrativo e Comercial?', 0)),
             company_segment: segment(getProperty(data, 'lead.custom_fields.Segmento', 0)),
             wip: works_in_progress(getProperty(data, 'lead.custom_fields.Sua empresa tem obras em andamento?', 0)),

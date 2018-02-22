@@ -30,7 +30,8 @@ describe('/normalize wip', function() {
     it('should return wip 0 when was not set', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -48,7 +49,8 @@ describe('/normalize wip', function() {
     it('should return wip 1 when Não, nenhuma', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -66,7 +68,8 @@ describe('/normalize wip', function() {
     it('should return wip 2 when Sim, pequenas reformas', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -84,7 +87,8 @@ describe('/normalize wip', function() {
     it('should return wip 3 when Sim, até 3 obras', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -102,7 +106,8 @@ describe('/normalize wip', function() {
     it('should return wip 4 when Sim, de 4 a 10 obras', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {
@@ -120,7 +125,8 @@ describe('/normalize wip', function() {
     it('should return wip 5 when Sim, mais de 11 obras', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'custom_fields': {

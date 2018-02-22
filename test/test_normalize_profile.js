@@ -30,7 +30,8 @@ describe('/normalize profile', function() {
     it('should return profile 1 when A', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'fit_score': 'a'
@@ -46,7 +47,8 @@ describe('/normalize profile', function() {
     it('should return profile 2 when B', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'fit_score': 'b'
@@ -62,7 +64,8 @@ describe('/normalize profile', function() {
     it('should return profile 3 when C', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'fit_score': 'c'
@@ -78,7 +81,8 @@ describe('/normalize profile', function() {
     it('should return profile 4 when D', function(done) {
         request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
         request
-            .post('/normalize/1')
+            .post('/normalize')
+            .set('token', '1')
             .send({
                 'lead': {
                     'fit_score': 'd'
