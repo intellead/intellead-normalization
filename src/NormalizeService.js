@@ -22,6 +22,7 @@ class NormalizeService {
 
     normalize(data, customer, callback) {
         var self = this;
+        dao.connect();
         dao.find_all_fields(customer, function(fields) {
             var normalized_data = {};
             for (var i = 0; i < fields.length; i++) {
@@ -33,6 +34,7 @@ class NormalizeService {
                     });
                 }
             }
+            dao.close();
             callback(normalized_data);
         });
     }

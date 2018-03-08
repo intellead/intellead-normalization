@@ -44,6 +44,7 @@ describe('service testing', function() {
 
     it('should return profile 1 when A and role 5 when Analista', function(done) {
         mock('../src/dao', {
+            connect: function() {},
             find_all_fields: function(customer, callback) {
                 callback(all_fields);
             },
@@ -53,7 +54,8 @@ describe('service testing', function() {
                 } else if (field.id == 2) {
                     callback(role);
                 }
-            }
+            },
+            close: function() {}
         });
         NormalizeService = mock.reRequire('../src/NormalizeService');
 

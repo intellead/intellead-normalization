@@ -19,50 +19,55 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/postgres' || process.env.DATABASE_URL);
 
-sequelize
-    .authenticate()
-    .then(function() {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(function(err) {
-        console.error('Unable to connect to the database:', err);
-    });
-
-const Field = sequelize.define('field', {
-    id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER
-    },
-    customer: {
-        type: Sequelize.INTEGER
-    },
-    name: {
-        type: Sequelize.STRING
-    },
-    path: {
-        type: Sequelize.STRING
-    }
-});
-const FieldConfig = sequelize.define('fieldconfig', {
-    id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER
-    },
-    field_id: {
-        type: Sequelize.INTEGER
-    },
-    value: {
-        type: Sequelize.STRING
-    },
-    number_value: {
-        type: Sequelize.INTEGER
-    }
-});
-
-Field.sync();
-FieldConfig.sync();
+var Field;
+var FieldConfig;
 
 module.exports = {
+
+    connect: function() {
+        sequelize
+            .authenticate()
+            .then(function() {
+                console.log('Connection has been established successfully.');
+            })
+            .catch(function(err) {
+                console.error('Unable to connect to the database:', err);
+            });
+
+        Field = sequelize.define('field', {
+            id: {
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            customer: {
+                type: Sequelize.INTEGER
+            },
+            name: {
+                type: Sequelize.STRING
+            },
+            path: {
+                type: Sequelize.STRING
+            }
+        });
+        FieldConfig = sequelize.define('fieldconfig', {
+            id: {
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            field_id: {
+                type: Sequelize.INTEGER
+            },
+            value: {
+                type: Sequelize.STRING
+            },
+            number_value: {
+                type: Sequelize.INTEGER
+            }
+        });
+
+        Field.sync();
+        FieldConfig.sync();
+    },
 
     find_all_fields: function (customer, callback) {
         Field.findAll().then(fields => callback(fields));
@@ -75,6 +80,10 @@ module.exports = {
                 value: value
             }
         }).then(config => callback(config.number_value));
+    },
+
+    close: function() {
+        sequelize.close();
     }
 
 };
