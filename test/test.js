@@ -26,7 +26,6 @@ var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
 var HTTPStatus = require('http-status');
 var customer = require('./customer.json');
-var mock = require('mock-require');
 
 describe('/normalize', function() {
 
