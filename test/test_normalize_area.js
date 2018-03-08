@@ -24,11 +24,12 @@ var expect = chai.expect;
 var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
+var customer = require('./customer.json');
 
 describe('/normalize area', function() {
 
     it('should return lead_area 0 when area was not set', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -47,7 +48,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 1 when Arquitetura', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -66,7 +67,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 2 when Comercial', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -85,7 +86,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 3 when Diretoria', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -104,7 +105,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 4 when Engenharia', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -123,7 +124,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 5 when Financeiro e Administrativo', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -142,7 +143,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 6 when Incorporação', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -161,7 +162,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 7 when Orçamento', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -180,7 +181,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 8 when Planejamento', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -199,7 +200,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 9 when RH', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -218,7 +219,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 9 when rh', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -237,7 +238,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 10 when TI', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -256,7 +257,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 10 when ti', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -275,7 +276,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 11 when Suprimentos', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -294,7 +295,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 12 when Outros', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -313,7 +314,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 12 when outros', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -332,7 +333,7 @@ describe('/normalize area', function() {
     });
 
     it('should return lead_area 13 when Contabilidade', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

@@ -24,11 +24,12 @@ var expect = chai.expect;
 var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
+var customer = require('./customer.json');
 
 describe('/normalize segment', function() {
 
     it('should return segment 0 when was not set', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -47,7 +48,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 1 when Construtora', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -66,7 +67,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 2 when Construtora e Incorporadora', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -85,7 +86,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 3 when Incorporadora', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -104,7 +105,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 4 when Instaladora', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -123,7 +124,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 5 when Loteadora', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -142,7 +143,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 6 when Obras Próprias', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -161,7 +162,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 7 when Reformas', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -180,7 +181,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 8 when Serviços', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -199,7 +200,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 9 when Serviços Especiais', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -218,7 +219,7 @@ describe('/normalize segment', function() {
     });
 
     it('should return segment 10 when Outros', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

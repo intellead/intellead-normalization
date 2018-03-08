@@ -17,7 +17,6 @@
 */
 
 var express = require('express');
-var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -25,7 +24,7 @@ var app = express();
 var request = require('request');
 var HTTPStatus = require('http-status');
 var securityUrl = process.env.SECURITY_URL || 'http://intellead-security:8080/auth';
-var normalize = require('./src/normalize');
+var NormalizeService = require('./src/NormalizeService');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -39,7 +38,7 @@ app.use(function(req, res, next) {
 
 app.post('/normalize', function (req, res) {
     var token = req.header('token');
-    request({ url: securityUrl + '/' + token}, function(error, response, body) {
+    request({ url: securityUrl + '/' + token}, function(error, response, customer) {
         if (response.statusCode != HTTPStatus.OK) {
             if (error) {
                 console.log(error);
@@ -48,8 +47,9 @@ app.post('/normalize', function (req, res) {
         }
         var data = req.body;
         if (Object.keys(req.body).length === 0) return res.sendStatus(412);
-        var normalized_data = normalize.lead(data);
-        return res.status(HTTPStatus.OK).send(normalized_data);
+        new NormalizeService().normalize(data, customer.id, function(normalized_data) {
+            return res.status(HTTPStatus.OK).send(normalized_data);
+        });
     });
 });
 

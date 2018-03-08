@@ -24,11 +24,12 @@ var expect = chai.expect;
 var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
+var customer = require('./customer.json');
 
 describe('/normalize looking_for_a_software', function() {
 
     it('should return looking_for_a_software 9 when was not set', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -49,7 +50,7 @@ describe('/normalize looking_for_a_software', function() {
     });
 
     it('should return looking_for_a_software 0 when Não', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -70,7 +71,7 @@ describe('/normalize looking_for_a_software', function() {
     });
 
     it('should return looking_for_a_software 1 when Sim', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

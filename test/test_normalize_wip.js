@@ -24,11 +24,12 @@ var expect = chai.expect;
 var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
+var customer = require('./customer.json');
 
 describe('/normalize wip', function() {
 
     it('should return wip 0 when was not set', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -47,7 +48,7 @@ describe('/normalize wip', function() {
     });
 
     it('should return wip 1 when Não, nenhuma', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -66,7 +67,7 @@ describe('/normalize wip', function() {
     });
 
     it('should return wip 2 when Sim, pequenas reformas', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -85,7 +86,7 @@ describe('/normalize wip', function() {
     });
 
     it('should return wip 3 when Sim, até 3 obras', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -104,7 +105,7 @@ describe('/normalize wip', function() {
     });
 
     it('should return wip 4 when Sim, de 4 a 10 obras', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -123,7 +124,7 @@ describe('/normalize wip', function() {
     });
 
     it('should return wip 5 when Sim, mais de 11 obras', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

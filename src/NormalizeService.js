@@ -16,9 +16,8 @@
  *
 */
 
-var dao = require('./dao');
-var find_all_fields = dao.find_all_fields;
-var find_field_config = dao.find_field_config;
+var find_all_fields = require('./dao').find_all_fields;
+var find_field_config = require('./dao').find_field_config;
 
 class NormalizeService {
 

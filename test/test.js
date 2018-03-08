@@ -26,11 +26,12 @@ var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
 var HTTPStatus = require('http-status');
 var fs = require('fs');
+var customer = require('./customer.json');
 
 describe('/normalize', function() {
 
     it('should return status code 412', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -42,7 +43,7 @@ describe('/normalize', function() {
     });
 
     it('should return status code 403', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 403}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 403}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -54,7 +55,7 @@ describe('/normalize', function() {
     });
 
     it('should return status code 200 when normalize data', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -96,7 +97,7 @@ describe('/normalize', function() {
     });
 
     it('should return status code 200 when normalize data from full lead', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

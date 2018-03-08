@@ -24,11 +24,12 @@ var expect = chai.expect;
 var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
+var customer = require('./customer.json');
 
 describe('/normalize concern', function() {
 
     it('should return concern 0 when was not set', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -47,7 +48,7 @@ describe('/normalize concern', function() {
     });
 
     it('should return concern 1 when Vender mais', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -66,7 +67,7 @@ describe('/normalize concern', function() {
     });
 
     it('should return concern 2 when Conseguir crédito para a empresa', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -85,7 +86,7 @@ describe('/normalize concern', function() {
     });
 
     it('should return concern 3 when Reduzir custos', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -104,7 +105,7 @@ describe('/normalize concern', function() {
     });
 
     it('should return concern 4 when Organizar a empresa para poder crescer', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -123,7 +124,7 @@ describe('/normalize concern', function() {
     });
 
     it('should return concern 5 when Saber onde perco dinheiro', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')

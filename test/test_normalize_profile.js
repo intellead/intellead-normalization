@@ -18,34 +18,34 @@
 
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
-var supertest = require('supertest');
 var chai = require('chai');
 var expect = chai.expect;
-var request_stub = sinon.stub();
-var app = proxyquire('../app', {'request': request_stub});
-var request = supertest(app);
 
 describe('/normalize profile', function() {
 
+    var NormalizeService;
+    var find_all_fields_stub;
+
+    beforeEach(function () {
+        find_all_fields_stub = sinon.stub();
+        NormalizeService = proxyquire('../src/NormalizeService', {'find_all_fields': find_all_fields_stub});
+    });
+
     it('should return profile 1 when A', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
-        request
-            .post('/normalize')
-            .set('token', '1')
-            .send({
-                'lead': {
-                    'fit_score': 'a'
-                }
-            })
-            .end(function (err, res) {
-                var normalized_data = JSON.stringify(res.body);
-                expect(normalized_data).contains('"profile":1');
-                done();
-            });
+        find_all_fields_stub.withArgs(1).yields({'profile':1});
+        NormalizeService.prototype.normalize({
+            'lead': {
+                'fit_score': 'a'
+            }
+        }, 1, function (normalized_data) {
+            var normalized_data = JSON.stringify(normalized_data);
+            expect(normalized_data).contains('"profile":1');
+            done();
+        });
     });
 
     it('should return profile 2 when B', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -62,7 +62,7 @@ describe('/normalize profile', function() {
     });
 
     it('should return profile 3 when C', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
@@ -79,7 +79,7 @@ describe('/normalize profile', function() {
     });
 
     it('should return profile 4 when D', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, null);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
         request
             .post('/normalize')
             .set('token', '1')
