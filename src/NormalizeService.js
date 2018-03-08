@@ -17,14 +17,16 @@
 */
 
 var dao = require('./dao');
+
 class NormalizeService {
 
     normalize(data, customer, callback) {
+        var self = this;
         dao.find_all_fields(customer, function(fields) {
             /*
             var normalized_data = {
                 role: this.job_title(this.getProperty(data, 'lead.job_title', 0)),
-                //profile: this.lead_profile(this.getProperty(data, 'lead.fit_score', 0)),
+                profile: this.lead_profile(this.getProperty(data, 'lead.fit_score', 0)),
                 conversion: parseInt(this.getProperty(data, 'lead.number_conversions', 0)),
                 lead_area: this.area(this.getProperty(data, 'lead.custom_fields.Área', 0)),
                 number_of_employees: this.number_of_employees_in_office(this.getProperty(data, 'lead.custom_fields.Quantos funcionários há na sua empresa nas áreas de Engenharia, Compras, Financeiro, Administrativo e Comercial?', 0)),
@@ -40,9 +42,11 @@ class NormalizeService {
             var normalized_data = {};
             for (var i = 0; i < fields.length; i++) {
                 var field = fields[i];
-                var value = this.getProperty(data, field.path);
+                var value = self.getProperty(data, field.path);
                 if (value) {
-                    normalized_data[fields[i].name] = find_field_config(field, value).number_value;
+                    dao.find_field_config(field, value, function(number_value) {
+                        normalized_data[fields[i].name] = number_value;
+                    });
                 }
             }
             callback(normalized_data);
@@ -440,7 +444,7 @@ class NormalizeService {
             if(isvoid(props)) props = [];
             if(typeof props  === "string") props = props.trim().split(".");
             if(props.constructor === Array){
-                res = props.length>1 ? getProperty(obj[props.shift()],props,defaultValue) : obj[props[0]];
+                res = props.length>1 ? this.getProperty(obj[props.shift()],props,defaultValue) : obj[props[0]];
             }
         }
         return typeof res === "undefined" ? defaultValue: res;

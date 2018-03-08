@@ -68,39 +68,13 @@ module.exports = {
         Field.findAll().then(fields => callback(fields));
     },
 
-    find_field_config: function (field, value) {
-        if (value == 'a') {
-            return {
-                id: 1,
-                field_id: 1,
-                value: 'a',
-                number_value: 1
-            };
-        }
-        if (value == 'b') {
-            return {
-                id: 2,
-                field_id: 1,
-                value: 'b',
-                number_value: 2
-            };
-        }
-        if (value == 'c') {
-            return {
-                id: 3,
-                field_id: 1,
-                value: 'c',
-                number_value: 3
-            };
-        }
-        if (value == 'd') {
-            return {
-                id: 4,
-                field_id: 1,
-                value: 'c',
-                number_value: 4
-            };
-        }
+    find_field_config: function (field, value, callback) {
+        FieldConfig.find({
+            where: {
+                id: field.id,
+                value: value
+            }
+        }).then(config => callback(config.number_value));
     }
 
 };
