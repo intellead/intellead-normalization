@@ -16,13 +16,12 @@
  *
 */
 
-var find_all_fields = require('./dao').find_all_fields;
-var find_field_config = require('./dao').find_field_config;
-
+var dao = require('./dao');
 class NormalizeService {
 
     normalize(data, customer, callback) {
-        find_all_fields(customer, function(fields) {
+        dao.find_all_fields(customer, function(fields) {
+            /*
             var normalized_data = {
                 role: this.job_title(this.getProperty(data, 'lead.job_title', 0)),
                 //profile: this.lead_profile(this.getProperty(data, 'lead.fit_score', 0)),
@@ -37,7 +36,8 @@ class NormalizeService {
                 looking_for_a_software: this.looking_for_a_management_software(this.getProperty(data, 'lead.last_conversion.content.Estou a procura de um software de gestão para minha empresa!', 9)),
                 main_activity: this.cnae(this.getProperty(data, 'lead.main_activity_code', 0))
             };
-
+            */
+            var normalized_data = {};
             for (var i = 0; i < fields.length; i++) {
                 var field = fields[i];
                 var value = this.getProperty(data, field.path);
@@ -45,7 +45,6 @@ class NormalizeService {
                     normalized_data[fields[i].name] = find_field_config(field, value).number_value;
                 }
             }
-
             callback(normalized_data);
         });
     }

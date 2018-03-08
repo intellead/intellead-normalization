@@ -20,19 +20,21 @@ var sinon = require('sinon');
 var proxyquire = require('proxyquire');
 var chai = require('chai');
 var expect = chai.expect;
+var mock = require('mock-require');
+var customer = 1;
 
 describe('/normalize profile', function() {
 
     var NormalizeService;
-    var find_all_fields_stub;
-
     beforeEach(function () {
-        find_all_fields_stub = sinon.stub();
-        NormalizeService = proxyquire('../src/NormalizeService', {'find_all_fields': find_all_fields_stub});
+        mock('../src/dao', { find_all_fields: function(customer, callback) {
+            callback({'profile':1});
+        }});
+        NormalizeService = mock.reRequire('../src/NormalizeService'); // fileToTest is now using your mock
+
     });
 
     it('should return profile 1 when A', function(done) {
-        find_all_fields_stub.withArgs(1).yields({'profile':1});
         NormalizeService.prototype.normalize({
             'lead': {
                 'fit_score': 'a'
