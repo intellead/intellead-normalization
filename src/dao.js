@@ -18,6 +18,7 @@
 
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/postgres' || process.env.DATABASE_URL);
+const Op = Sequelize.Op;
 
 var Field;
 var FieldConfig;
@@ -47,6 +48,12 @@ module.exports = {
             },
             path: {
                 type: Sequelize.STRING
+            },
+            type: {
+                type: Sequelize.STRING
+            },
+            default_number_value: {
+                type: Sequelize.INTEGER
             }
         });
         FieldConfig = sequelize.define('fieldconfig', {
@@ -62,6 +69,9 @@ module.exports = {
             },
             number_value: {
                 type: Sequelize.INTEGER
+            },
+            value_operator: {
+                type: Sequelize.STRING
             }
         });
 
@@ -74,12 +84,20 @@ module.exports = {
     },
 
     find_field_config: function (field, value, callback) {
-        FieldConfig.find({
+        FieldConfig.findAll({
             where: {
-                id: field.id,
-                value: value
+                id: field.id
             }
-        }).then(config => callback(config.number_value));
+        }).then(configs => {
+            for (var i = 0; i < configs.length; i++) {
+                var config = configs[i];
+                if ((config.value_operator == 'eq' && config.value == value) ||
+                    (config.value_operator == 'like' && value.indexOf(config.value) != -1)) {
+                    return callback(config.number_value);
+                }
+            }
+            return callback(field.default_number_value);
+        });
     },
 
     close: function() {

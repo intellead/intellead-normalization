@@ -30,13 +30,17 @@ describe('service testing', function() {
             "id": 1,
             "customer": 1,
             "name": "profile",
-            "path": "lead.fit_score"
+            "path": "lead.fit_score",
+            "type": "config",
+            "default_number_value": 0
         },
         {
             "id": 2,
             "customer": 1,
             "name": "role",
-            "path": "lead.job_title"
+            "path": "lead.job_title",
+            "type": "config",
+            "default_number_value": 0
         }
     ];
     var profile = 1;

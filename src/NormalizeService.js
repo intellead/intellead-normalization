@@ -29,9 +29,15 @@ class NormalizeService {
                 var field = fields[i];
                 var value = self.getProperty(data, field.path);
                 if (value) {
-                    dao.find_field_config(field, value, function(number_value) {
-                        normalized_data[fields[i].name] = number_value;
-                    });
+                    if (field.type == 'config') {
+                        dao.find_field_config(field, value, function (number_value) {
+                            normalized_data[field.name] = number_value;
+                        });
+                    } else if (field.type == 'raw') {
+                        normalized_data[field.name] = value;
+                    }
+                } else {
+                    normalized_data[field.name] = field.default_number_value;
                 }
             }
             dao.close();
