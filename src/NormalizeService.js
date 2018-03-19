@@ -17,31 +17,32 @@
 */
 
 var dao = require('./dao');
+var Sync = require('sync');
 
 class NormalizeService {
 
     normalize(data, customer, callback) {
         var self = this;
         dao.connect();
-        dao.find_all_fields(customer, function(fields) {
-            var normalized_data = {};
-            for (var i = 0; i < fields.length; i++) {
-                var field = fields[i];
-                var value = self.getProperty(data, field.path);
-                if (value) {
-                    if (field.type == 'config') {
-                        dao.find_field_config(field, value, function (number_value) {
-                            normalized_data[field.name] = number_value;
-                        });
-                    } else if (field.type == 'raw') {
-                        normalized_data[field.name] = value;
+        dao.find_all_fields(customer, function (fields) {
+            Sync(function () {
+                var normalized_data = {};
+                for (var i = 0; i < fields.length; i++) {
+                    var field = fields[i];
+                    var value = self.getProperty(data, field.path);
+                    if (value) {
+                        if (field.type == 'config') {
+                            normalized_data[field.name] = dao.find_field_config.sync(null, field, value);
+                        } else if (field.type == 'raw') {
+                            normalized_data[field.name] = value;
+                        }
+                    } else {
+                        normalized_data[field.name] = field.default_number_value;
                     }
-                } else {
-                    normalized_data[field.name] = field.default_number_value;
                 }
-            }
-            dao.close();
-            callback(normalized_data);
+                dao.close();
+                callback(normalized_data);
+            });
         });
     }
 

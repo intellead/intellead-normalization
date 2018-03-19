@@ -17,15 +17,15 @@
 */
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/postgres' || process.env.DATABASE_URL);
-const Op = Sequelize.Op;
-
+var sequelize;
 var Field;
 var FieldConfig;
 
 module.exports = {
 
     connect: function() {
+        sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:postgres@intellead-normalization-postgresql:5432/postgres');
+
         sequelize
             .authenticate()
             .then(function() {
@@ -80,23 +80,29 @@ module.exports = {
     },
 
     find_all_fields: function (customer, callback) {
-        Field.findAll().then(fields => callback(fields));
+        Field.findAll({
+            where: {
+                customer: customer
+            }
+        }).then(fields => {
+            callback(fields);
+        });
     },
 
     find_field_config: function (field, value, callback) {
         FieldConfig.findAll({
             where: {
-                id: field.id
+                field_id: field.id
             }
         }).then(configs => {
             for (var i = 0; i < configs.length; i++) {
                 var config = configs[i];
                 if ((config.value_operator == 'eq' && config.value == value) ||
                     (config.value_operator == 'like' && value.indexOf(config.value) != -1)) {
-                    return callback(config.number_value);
+                    return callback(null, config.number_value);
                 }
             }
-            return callback(field.default_number_value);
+            return callback(null, field.default_number_value);
         });
     },
 

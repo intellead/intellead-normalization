@@ -38,7 +38,8 @@ app.use(function(req, res, next) {
 
 app.post('/normalize', function (req, res) {
     var token = req.header('token');
-    request({ url: securityUrl + '/' + token}, function(error, response, customer) {
+    request({ url: securityUrl + '/' + token}, function(error, response, customerString) {
+        var customer = JSON.parse(customerString);
         if (response.statusCode != HTTPStatus.OK) {
             if (error) {
                 console.log(error);

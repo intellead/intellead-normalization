@@ -4,7 +4,9 @@ WORKDIR /usr/src/intellead/intellead-normalization/app
 
 COPY package.json ./
 
-RUN npm install --silent --progress=false --production
+RUN apk update && \
+    apk add python make g++ && \
+    npm install --silent --progress=false --production
 
 COPY app.js ./
 
