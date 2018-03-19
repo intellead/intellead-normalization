@@ -19,9 +19,10 @@
 var chai = require('chai');
 var expect = chai.expect;
 var mock = require('mock-require');
-var customer = 1;
 
 describe('service testing', function() {
+
+    this.timeout(15000);
 
     var NormalizeService;
 
@@ -52,7 +53,7 @@ describe('service testing', function() {
             find_all_fields: function(customer, callback) {
                 callback(all_fields);
             },
-            find_field_config: function(field, value, callback) {
+            find_field_config_number_value: function(field, value, callback) {
                 if (field.id == 1) {
                     callback(profile);
                 } else if (field.id == 2) {
@@ -68,7 +69,7 @@ describe('service testing', function() {
                 'fit_score': 'a',
                 'job_title': 'Analista'
             }
-        }, customer, function (normalized_data) {
+        }, 1, function (normalized_data) {
             var normalized_data = JSON.stringify(normalized_data);
             expect(normalized_data).contains('"profile":1');
             expect(normalized_data).contains('"role":5');

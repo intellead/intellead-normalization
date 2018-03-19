@@ -89,7 +89,7 @@ module.exports = {
         });
     },
 
-    find_field_config: function (field, value, callback) {
+    find_field_config_number_value: function (field, value, callback) {
         FieldConfig.findAll({
             where: {
                 field_id: field.id

@@ -25,12 +25,11 @@ var request_stub = sinon.stub();
 var app = proxyquire('../app', {'request': request_stub});
 var request = supertest(app);
 var HTTPStatus = require('http-status');
-var customer = require('./customer.json');
 
 describe('/normalize', function() {
 
     it('should return status code 412', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, customer);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 200}, '{"id": 1, "customer": 1, "name": "profile", "path": "lead.fit_score"}');
         request
             .post('/normalize')
             .set('token', '1')
@@ -42,7 +41,7 @@ describe('/normalize', function() {
     });
 
     it('should return status code 403', function(done) {
-        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 403}, customer);
+        request_stub.withArgs({url: 'http://intellead-security:8080/auth/1'}).yields(null, {'statusCode': 403}, '{"id": 1, "customer": 1, "name": "profile", "path": "lead.fit_score"}');
         request
             .post('/normalize')
             .set('token', '1')

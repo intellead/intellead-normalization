@@ -32,7 +32,7 @@ class NormalizeService {
                     var value = self.getProperty(data, field.path);
                     if (value) {
                         if (field.type == 'config') {
-                            normalized_data[field.name] = dao.find_field_config.sync(null, field, value);
+                            normalized_data[field.name] = dao.find_field_config_number_value.sync(null, field, value);
                         } else if (field.type == 'raw') {
                             normalized_data[field.name] = value;
                         }
