@@ -83,30 +83,32 @@ module.exports = {
     },
 
     find_all_fields_join_configs: function (customer, callback) {
+        console.log('dao -> find_all_fields_join_configs -> start');
         var self = this;
+        console.log('dao -> find_all_fields_join_configs -> starting fiber');
         Sync(function() {
-            let fields = Field.findAll.sync(null, {
-                where: {
-                    customer: customer
-                }
-            });
+            console.log('dao -> find_all_fields_join_configs -> starting function inside fiber');
+            let fields = self.find_fields.sync(null, customer);
+            console.log('dao -> find_all_fields_join_configs -> found fields');
             for (var i = 0; i < fields.length; i++) {
+                console.log('dao -> find_all_fields_join_configs -> finding field ' + i);
                 fields[i].configs = self.find_field_configs.sync(null, fields[i]);
+                console.log('dao -> find_all_fields_join_configs -> found field ' + i);
             }
-            console.log('dao -> find_all_fields_join_configs');
+            console.log('dao -> find_all_fields_join_configs -> end');
             callback(fields);
-            // Field.findAll({
-            //     where: {
-            //         customer: customer
-            //     }
-            // }).then(fields => {
-            //     for (var i = 0; i < fields.length; i++) {
-            //         fields[i].configs = self.find_field_configs.sync(null, fields[i]);
-            //     }
-            //     console.log('dao -> find_all_fields_join_configs');
-            //     callback(fields);
-            // });
         });
+    },
+
+    find_fields: function(customer, callback) {
+        Field.findAll({
+            where: {
+                customer: customer
+            }
+        }).then(fields => {
+            console.log('dao -> find_fields');
+            return callback(null, fields);
+        })
     },
 
     find_field_configs: function (field, callback) {
