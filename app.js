@@ -48,7 +48,9 @@ app.post('/normalize', function (req, res) {
         }
         var data = req.body;
         if (Object.keys(req.body).length === 0) return res.sendStatus(412);
+        console.log('/normalize -> ' + data.email);
         new NormalizeService().normalize(data, customer.id, function(normalized_data) {
+            console.log(normalized_data);
             return res.status(HTTPStatus.OK).send(normalized_data);
         });
     });

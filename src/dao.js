@@ -78,6 +78,8 @@ module.exports = {
 
         Field.sync();
         FieldConfig.sync();
+
+        console.log('dao -> connected');
     },
 
     find_all_fields_join_configs: function (customer, callback) {
@@ -91,6 +93,7 @@ module.exports = {
                 for (var i = 0; i < fields.length; i++) {
                     field.configs = self.find_field_configs.sync(null, fields[i]);
                 }
+                console.log('dao -> find_all_fields_join_configs');
                 callback(fields);
             });
         });
@@ -102,12 +105,14 @@ module.exports = {
                 field_id: field.id
             }
         }).then(configs => {
+            console.log('dao -> find_field_configs');
             return callback(null, configs);
         });
     },
 
     close: function() {
         sequelize.close();
+        console.log('dao -> closed');
     },
 
 };
