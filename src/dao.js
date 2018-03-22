@@ -85,17 +85,27 @@ module.exports = {
     find_all_fields_join_configs: function (customer, callback) {
         var self = this;
         Sync(function() {
-            Field.findAll({
+            let fields = Field.findAll.sync(null, {
                 where: {
                     customer: customer
                 }
-            }).then(fields => {
-                for (var i = 0; i < fields.length; i++) {
-                    fields[i].configs = self.find_field_configs.sync(null, fields[i]);
-                }
-                console.log('dao -> find_all_fields_join_configs');
-                callback(fields);
             });
+            for (var i = 0; i < fields.length; i++) {
+                fields[i].configs = self.find_field_configs.sync(null, fields[i]);
+            }
+            console.log('dao -> find_all_fields_join_configs');
+            callback(fields);
+            // Field.findAll({
+            //     where: {
+            //         customer: customer
+            //     }
+            // }).then(fields => {
+            //     for (var i = 0; i < fields.length; i++) {
+            //         fields[i].configs = self.find_field_configs.sync(null, fields[i]);
+            //     }
+            //     console.log('dao -> find_all_fields_join_configs');
+            //     callback(fields);
+            // });
         });
     },
 
