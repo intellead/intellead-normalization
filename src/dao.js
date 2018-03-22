@@ -16,6 +16,7 @@
  *
 */
 
+var Sync = require('sync');
 const Sequelize = require('sequelize');
 var sequelize;
 var Field;
@@ -79,35 +80,34 @@ module.exports = {
         FieldConfig.sync();
     },
 
-    find_all_fields: function (customer, callback) {
-        Field.findAll({
-            where: {
-                customer: customer
-            }
-        }).then(fields => {
-            callback(fields);
+    find_all_fields_join_configs: function (customer, callback) {
+        var self = this;
+        Sync(function() {
+            Field.findAll({
+                where: {
+                    customer: customer
+                }
+            }).then(fields => {
+                for (var i = 0; i < fields.length; i++) {
+                    field.configs = self.find_field_configs.sync(null, fields[i]);
+                }
+                callback(fields);
+            });
         });
     },
 
-    find_field_config_number_value: function (field, value, callback) {
+    find_field_configs: function (field, callback) {
         FieldConfig.findAll({
             where: {
                 field_id: field.id
             }
         }).then(configs => {
-            for (var i = 0; i < configs.length; i++) {
-                var config = configs[i];
-                if ((config.value_operator == 'eq' && config.value == value) ||
-                    (config.value_operator == 'like' && value.indexOf(config.value) != -1)) {
-                    return callback(null, config.number_value);
-                }
-            }
-            return callback(null, field.default_number_value);
+            return callback(null, configs);
         });
     },
 
     close: function() {
         sequelize.close();
-    }
+    },
 
 };

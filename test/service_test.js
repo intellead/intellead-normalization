@@ -22,8 +22,6 @@ var mock = require('mock-require');
 
 describe('service testing', function() {
 
-    this.timeout(15000);
-
     var NormalizeService;
 
     var all_fields = [
@@ -33,7 +31,16 @@ describe('service testing', function() {
             "name": "profile",
             "path": "lead.fit_score",
             "type": "config",
-            "default_number_value": 0
+            "default_number_value": 0,
+            "configs": [
+                {
+                    "id": 1,
+                    "field_id": 1,
+                    "value": "a",
+                    "number_value": 1,
+                    "value_operator": "eq"
+                }
+            ]
         },
         {
             "id": 2,
@@ -41,25 +48,42 @@ describe('service testing', function() {
             "name": "role",
             "path": "lead.job_title",
             "type": "config",
+            "default_number_value": 0,
+            "configs": [
+                {
+                    "id": 2,
+                    "field_id": 2,
+                    "value": "Analista",
+                    "number_value": 5,
+                    "value_operator": "eq"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "customer": 1,
+            "name": "conversion",
+            "path": "lead.number_conversions",
+            "type": "raw",
             "default_number_value": 0
+        },
+        {
+            "id": 4,
+            "customer": 1,
+            "name": "company_segment",
+            "path": "lead.custom_fields.Segmento",
+            "type": "config",
+            "default_number_value": 7
         }
     ];
-    var profile = 1;
-    var role = 5;
 
     it('should return profile 1 when A and role 5 when Analista', function(done) {
         mock('../src/dao', {
             connect: function() {},
-            find_all_fields: function(customer, callback) {
+            find_all_fields_join_configs: function(customer, callback) {
                 callback(all_fields);
             },
-            find_field_config_number_value: function(field, value, callback) {
-                if (field.id == 1) {
-                    callback(profile);
-                } else if (field.id == 2) {
-                    callback(role);
-                }
-            },
+            find_field_configs: function(field, callback) {},
             close: function() {}
         });
         NormalizeService = mock.reRequire('../src/NormalizeService');
@@ -67,12 +91,18 @@ describe('service testing', function() {
         NormalizeService.prototype.normalize({
             'lead': {
                 'fit_score': 'a',
-                'job_title': 'Analista'
+                'job_title': 'Analista',
+                'number_conversions': 9,
+                'custom_fields': {
+                    'Segmento': 'segmento não existente'
+                }
             }
         }, 1, function (normalized_data) {
             var normalized_data = JSON.stringify(normalized_data);
             expect(normalized_data).contains('"profile":1');
             expect(normalized_data).contains('"role":5');
+            expect(normalized_data).contains('"conversion":9');
+            expect(normalized_data).contains('"company_segment":7');
             done();
         });
     });
