@@ -91,8 +91,7 @@ module.exports = {
                 }
             }).then(fields => {
                 for (var i = 0; i < fields.length; i++) {
-                    let field = fields[i];
-                    field.configs = self.find_field_configs.sync(null, field);
+                    fields[i].configs = self.find_field_configs.sync(null, fields[i]);
                 }
                 console.log('dao -> find_all_fields_join_configs');
                 callback(fields);
