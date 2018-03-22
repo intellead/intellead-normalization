@@ -16,15 +16,103 @@
  *
 */
 
+var Sync = require('sync');
 const Sequelize = require('sequelize');
-var databaseUrl = process.env.DATABASE_URL || 'postgres://localhost:5432/postgres';
-const sequelize = new Sequelize(databaseUrl);
+var sequelize;
+var Field;
+var FieldConfig;
 
-sequelize
-    .authenticate()
-    .then(function() {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(function(err) {
-        console.error('Unable to connect to the database:', err);
-    });
+module.exports = {
+
+    connect: function() {
+        sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:postgres@intellead-normalization-postgresql:5432/postgres');
+
+        sequelize
+            .authenticate()
+            .then(function() {
+                console.log('Connection has been established successfully.');
+            })
+            .catch(function(err) {
+                console.error('Unable to connect to the database:', err);
+            });
+
+        Field = sequelize.define('field', {
+            id: {
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            customer: {
+                type: Sequelize.INTEGER
+            },
+            name: {
+                type: Sequelize.STRING
+            },
+            path: {
+                type: Sequelize.STRING
+            },
+            type: {
+                type: Sequelize.STRING
+            },
+            default_number_value: {
+                type: Sequelize.INTEGER
+            }
+        });
+        FieldConfig = sequelize.define('fieldconfig', {
+            id: {
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            field_id: {
+                type: Sequelize.INTEGER
+            },
+            value: {
+                type: Sequelize.STRING
+            },
+            number_value: {
+                type: Sequelize.INTEGER
+            },
+            value_operator: {
+                type: Sequelize.STRING
+            }
+        });
+
+        Field.sync();
+        FieldConfig.sync();
+
+        console.log('dao -> connected');
+    },
+
+    find_all_fields_join_configs: function (customer, callback) {
+        var self = this;
+        Sync(function() {
+            Field.findAll({
+                where: {
+                    customer: customer
+                }
+            }).then(fields => {
+                for (var i = 0; i < fields.length; i++) {
+                    field.configs = self.find_field_configs.sync(null, fields[i]);
+                }
+                console.log('dao -> find_all_fields_join_configs');
+                callback(fields);
+            });
+        });
+    },
+
+    find_field_configs: function (field, callback) {
+        FieldConfig.findAll({
+            where: {
+                field_id: field.id
+            }
+        }).then(configs => {
+            console.log('dao -> find_field_configs');
+            return callback(null, configs);
+        });
+    },
+
+    close: function() {
+        sequelize.close();
+        console.log('dao -> closed');
+    },
+
+};
