@@ -31,7 +31,7 @@ class NormalizeService {
                 let number_value;
                 if (value) {
                     if (field.type == 'config' && field.configs) {
-                        var configs = field.configs;
+                        let configs = field.configs;
                         for (var j = 0; j < configs.length; j++) {
                             let config = configs[j];
                             if ((config.value_operator == 'eq' && config.value == value) ||
