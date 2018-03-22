@@ -78,24 +78,15 @@ module.exports = {
 
         Field.sync();
         FieldConfig.sync();
-
-        console.log('dao -> connected');
     },
 
     find_all_fields_join_configs: function (customer, callback) {
-        console.log('dao -> find_all_fields_join_configs -> start');
         var self = this;
-        console.log('dao -> find_all_fields_join_configs -> starting fiber');
         Sync(function() {
-            console.log('dao -> find_all_fields_join_configs -> starting function inside fiber');
             let fields = self.find_fields.sync(null, customer);
-            console.log('dao -> find_all_fields_join_configs -> found fields');
             for (var i = 0; i < fields.length; i++) {
-                console.log('dao -> find_all_fields_join_configs -> finding field ' + i);
                 fields[i].configs = self.find_field_configs.sync(null, fields[i]);
-                console.log('dao -> find_all_fields_join_configs -> found field ' + i);
             }
-            console.log('dao -> find_all_fields_join_configs -> end');
             callback(fields);
         });
     },
@@ -106,7 +97,6 @@ module.exports = {
                 customer: customer
             }
         }).then(fields => {
-            console.log('dao -> find_fields');
             return callback(null, fields);
         })
     },
@@ -117,14 +107,12 @@ module.exports = {
                 field_id: field.id
             }
         }).then(configs => {
-            console.log('dao -> find_field_configs');
             return callback(null, configs);
         });
     },
 
     close: function() {
         sequelize.close();
-        console.log('dao -> closed');
     },
 
 };
