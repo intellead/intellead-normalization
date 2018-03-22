@@ -40,7 +40,7 @@ class NormalizeService {
                             }
                         }
                     } else if (field.type == 'raw') {
-                        number_value = value;
+                        number_value = parseInt(value);
                     }
                 }
                 if (!number_value) {
