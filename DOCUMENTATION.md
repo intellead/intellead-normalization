@@ -25,7 +25,7 @@ The application uses a postgres database to store the dataset.
 For this it is necessary to configure the connection variables.  
 You must config the following vars:
   * SECURITY_URL - Full URL to intellead-security auth endpoint (`http://intellead-security/auth`);
-  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<database>`)
+  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<database>`).
 
 #### Get a copy
 I like to encourage you to contribute to the repository.
@@ -117,4 +117,3 @@ When using the above cenario, (JavaScript call example and Database setup exampl
 
 ## Copyrights and Licence
 Project copyright and license is available at [LICENSE.md](./LICENSE.md).
-TO DO
