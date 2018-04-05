@@ -1,6 +1,6 @@
 # Welcome to Intellead Normalization documentation!
 
-Intellead Data aims to be an easy way to normalize data for Intellead project.
+Intellead Normalization aims to be an easy way to normalize data for Intellead project.
 
 ## Contents
   * Introduction
