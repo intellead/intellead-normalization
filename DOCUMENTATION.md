@@ -1,11 +1,11 @@
 # Welcome to Intellead Normalization documentation!
 
-Intellead Data aims to be an easy way to store and retrieval data of leads for Intellead project.
+Intellead Data aims to be an easy way to normalize data for Intellead project.
 
 ## Contents
   * Introduction
-    * Config vars
   * Instalation
+    * Config vars
     * Get a copy
   * Configuration and use cases
     * JavaScript call example
@@ -16,7 +16,7 @@ Intellead Data aims to be an easy way to store and retrieval data of leads for I
   * Copyrights and Licence
   
 ## Introduction
-Intellead Normalization aims to receive the data in json formmat and return data normalized to be used by intellead-classification.
+Intellead Normalization aims to receive the data in json format and return data normalized to be used by intellead-classification and intellead-connector.
 
 ## Instalation
 intellead-normalization is a very smaller component that provide a simple way to receive data, store and retrieval.
@@ -27,7 +27,7 @@ The application uses a postgres database to store the dataset.
 For this it is necessary to configure the connection variables.  
 You must config the following vars:
   * SECURITY_URL - Full URL to intellead-security auth endpoint (`http://intellead-security/auth`);
-  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<databse>`)
+  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<database>`)
 
 #### Get a copy
 I like to encourage you to contribute to the repository.
@@ -55,12 +55,28 @@ request.post(
             'source': 'e-mail',
             'segment': 'construction'
         }
-    });
+    },
+    headers = {
+        'token': <security-token>
+    );
 ```
 
 #### Database setup example
 
+This service uses a postgres database to store the configurations that tells how the lead data should be normalized.  
+It uses two tables, explained below.
+
 ##### Fields table
+
+###### Columns
+  * `id` - unique id (primary key)
+  * `customer` - security customer id
+  * `name` - field name that will be returned
+  * `path` - path to find field at input json
+  * `type` - field type
+    * config - uses FieldConfigs table to find the normalized value
+    * raw - uses lead value at input json
+  * `default_number_value` - value to be returned when match was not found
 
 | id | customer | name             | path             | type     | default_number_value |
 | -- | -------- | ---------------- | ---------------- | -------- | -------------------- |
@@ -70,6 +86,13 @@ request.post(
 | 4  | 1        | norm_segment     | lead.segment     | 'config' | 0                    |
 
 ##### FieldConfigs table
+  * `id` - unique id (primary key)
+  * `field_id` - Fields table `id` (foreign key)
+  * `value` - value to be compared at input json
+  * `number_value` - value to be returned when `value` matches
+  * `value_operator` - operator to be used when comparing `value` with value informed at input json
+    * eq - equals comparison
+    * like - contains comparison (`like '%value%'`)
 
 | id | field_id | value            | number_value     | value_operator |
 | -- | -------- | ---------------- | ---------------- | -------------- |
@@ -82,6 +105,7 @@ request.post(
 
 #### Expected result
 
+When using the above cenario, (JavaScript call example and Database setup example), the expected result will be:
 ```
 {
     'norm_role': 3,
