@@ -5,9 +5,9 @@ Intellead Normalization aims to be an easy way to normalize data for Intellead p
 ## Contents
   * Introduction
   * Instalation
-    * Config vars
     * Get a copy
   * Configuration and use cases
+    * Config vars
     * JavaScript call example
     * Database setup example
       * Fields table
@@ -19,13 +19,6 @@ Intellead Normalization aims to be an easy way to normalize data for Intellead p
 Intellead Normalization aims to receive the data in json format and return data normalized to be used by intellead-classification and intellead-connector.
 
 ## Instalation
-
-#### Config vars
-The application uses a postgres database to store the dataset.  
-For this it is necessary to configure the connection variables.  
-You must config the following vars:
-  * SECURITY_URL - Full URL to intellead-security auth endpoint (`http://intellead-security/auth`);
-  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<database>`).
 
 #### Get a copy
 I like to encourage you to contribute to the repository.
@@ -41,6 +34,13 @@ This should be as easy as possible for you but there are few things to consider 
 
 ## Configuration and use cases
 Once the application is installed (check Installation) define the following settings to enable the application behavior.
+
+#### Config vars
+The application uses a postgres database to store the dataset.  
+For this it is necessary to configure the connection variables.  
+You must config the following vars:
+  * SECURITY_URL - Full URL to intellead-security auth endpoint (`http://intellead-security/auth`);
+  * DATABASE_URL - Full URL to intellead-normalization-postgres (`postgres://<user>:<password>@<host>:<port>/<database>`).
 
 #### JavaScript call example
 ```
