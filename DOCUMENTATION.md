@@ -116,4 +116,4 @@ When using the above cenario, (JavaScript call example and Database setup exampl
 ```
 
 ## Copyrights and Licence
-Project copyright and license is available at [LICENSE.md](./LICENSE.md).
+Project copyright and license is available at [LICENSE](./LICENSE).
