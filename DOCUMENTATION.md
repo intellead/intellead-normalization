@@ -19,8 +19,6 @@ Intellead Data aims to be an easy way to normalize data for Intellead project.
 Intellead Normalization aims to receive the data in json format and return data normalized to be used by intellead-classification and intellead-connector.
 
 ## Instalation
-intellead-normalization is a very smaller component that provide a simple way to receive data, store and retrieval.
-This way you do not need to install any other components for this to work.
 
 #### Config vars
 The application uses a postgres database to store the dataset.  
@@ -47,7 +45,7 @@ Once the application is installed (check Installation) define the following sett
 #### JavaScript call example
 ```
 request.post(
-    http://your_domain.com/normalize,
+    url = http://your_domain.com/normalize,
     json = {
         'lead': {
             'role': 'owner/partner',
@@ -58,7 +56,7 @@ request.post(
     },
     headers = {
         'token': <security-token>
-    );
+    });
 ```
 
 #### Database setup example
@@ -86,6 +84,8 @@ It uses two tables, explained below.
 | 4  | 1        | norm_segment     | lead.segment     | 'config' | 0                    |
 
 ##### FieldConfigs table
+
+###### Columns
   * `id` - unique id (primary key)
   * `field_id` - Fields table `id` (foreign key)
   * `value` - value to be compared at input json
